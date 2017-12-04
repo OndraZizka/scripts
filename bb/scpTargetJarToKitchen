@@ -1,0 +1,10 @@
+
+
+#~/sc/scpKitchen `find */target -name bpds-api-18.1.0-SNAPSHOT.jar`
+
+## Mac grep doesn't support \0 separator with -z.
+#find */target -name bpds-api-18.1.0-SNAPSHOT.jar -print0 | grep -z | ...
+
+find */target -name bpds-api-18.1.0-SNAPSHOT.jar -print0 | xargs -t -n1 ~/sc/scpKitchen
+
+

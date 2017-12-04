@@ -1,0 +1,72 @@
+#!/bin/bash
+
+REBASE_ONTO_BRANCH="develop"
+REBASE_ONTO_REMOTE="upstream"
+STARTING_COMMIT=$(git rev-parse HEAD)
+STARTING_BRANCH=(git rev-parse --abbrev-ref HEAD)
+
+test -d "$(git rev-parse --git-path rebase-merge)" || test -d "$(git rev-parse --git-path rebase-apply)"
+IN_A_REBASE=$?
+
+if [ "$IN_A_REBASE" == 1 ] ; then   ## Not in a rebase, do:
+## ---------------------------------------------------------------
+
+echo " *** Currently at $STARTING_COMMIT - $STARTING_BRANCH ***"
+
+
+GO_INTO_CONFLICT="";
+if [ "$1" == "force" ] ; then
+  GO_INTO_CONFLICT="true";
+fi
+
+PUSH_AFTER="";
+if [ "$2" == "push" ] || [ "$3" == "push" ] ; then
+  PUSH_AFTER="true";
+fi
+
+TEST_BEFORE_PUSH="-DskipTests";
+if [ "$2" == "test" ] || [ "$3" == "test" ] ; then
+  TEST_BEFORE_PUSH="";
+fi
+
+set -e
+
+echo "Maven cleaning..."
+mvn clean -q;
+
+if `! git diff --quiet HEAD` ; then git status; echo -e "\n\n     Unclean Git working space. Commit or stash your changes first.\n\n"; exit 20; fi;
+
+git fetch upstream;
+git checkout $REBASE_ONTO_BRANCH;
+ORIGINAL_ONTO_BRANCH=$(git rev-parse HEAD)
+git branch --set-upstream-to=$REBASE_ONTO_REMOTE/$REBASE_ONTO_BRANCH;
+git pull;
+echo "Maven building latest $REBASE_ONTO_BRANCH..."
+mvn install -q -DskipTests=true;
+echo -e "\n\n\n\n\n\n\n";
+
+if [ $? != 0 ] ; then echo -e "\n\n     The remote updated branch failed to build.\n    Originally was at: $ORIGINAL_ONTO_BRANCH\n\n"; exit 21; fi;
+
+git co -;
+
+if [ "$GO_INTO_CONFLICT" == "" ] ; then
+  git rebase $REBASE_ONTO_BRANCH ||  (git rebase --abort && echo -e "\n\n    Rebase conflicted, aborted.\n\n" && exit 22) ;
+else
+  git rebase $REBASE_ONTO_BRANCH ||  (echo -e "\n\n    Rebase caused conflicts. Resolve conflicts and then 'git rebase --continue' or 'repull'." && exit 23);
+fi
+exit;
+
+echo "Maven building the rebased $STARTING_BRANCH..."
+mvn clean install $TEST_BEFORE_PUSH ||  echo -e "\n\n    Maven build after rebase." && exit 30 ;
+
+## --------------------------------------------------------------
+## ... End of "not in a rebase part".
+else   
+  git rebase --continue ||  (echo -e "\n\n    Rebase --continue caused conflicts. Resolve conflicts and then 'git rebase --continue' or 'repull'." && exit 23);
+fi;
+
+
+
+#if [ "" != "$PUSH_AFTER" ] ; then
+#  git push -f '$REBASE_ONTO_REMOTE' '$STARTING_BRANCH'
+#fi

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+DEBUG=""
+if [[ "$1" =~ [0-9]+ || "$1" == "debug" ]] ; then
+   DEBUG_PORT=$1;
+   [ $DEBUG_PORT == "debug" ] && DEBUG_PORT="5050"
+   DEBUG="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=$DEBUG_PORT";
+   shift;
+fi
+
+YAML_PATH=""
+if [[ "$1" == "sample" ]] ; then
+   YAML_PATH=docs/sample-kitchen.yml
+   shift;
+fi
+
+#echo "Removing original jar..."
+rm -v ./*-api/target/original-*.jar 2>&-  | awk '{print "  Deleting " $0}';
+rm -v ../_logs/BPDS/*.log ../_logs/BPDS/*.gz  2>&-  | awk '{print "  Deleting log " $0}';
+	
+set -x
+java $DEBUG -jar ./*-api/target/*-api-*.jar server "$@" $YAML_PATH;

@@ -1,0 +1,1 @@
+ssh -i `find .kitchen/ -name private_key` vagrant@localhost -p 2222

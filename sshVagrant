@@ -1,0 +1,1 @@
+ssh -i /work/COOK/bbcpd-bpds-api/.kitchen/kitchen-vagrant/default-centos-72/.vagrant/machines/default/virtualbox/private_key vagrant@localhost -p 2222

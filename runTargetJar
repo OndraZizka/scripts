@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## Shader's residual
+mkdir -p target/beforeShade/
+mv target/original-*.jar target/beforeShade/
+
+set -x
+java -jar target/*.jar "$@"
