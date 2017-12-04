@@ -5,7 +5,7 @@ if [ 0 == `find */.kitchen/ -name private_key | wc -l` ] ; then
     echo "No kitchen private key found in subdirs; are you in a cookbook project?"; exit;
 fi
 
-TARGET_REMOTE_DIR="~"
+TARGET_REMOTE_DIR=${2:-"~"}
 
 
 scp -i `find */.kitchen/ -name private_key` -P 2222 "$1" vagrant@localhost:$TARGET_REMOTE_DIR
