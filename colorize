@@ -1,0 +1,6 @@
+
+PAT2=${2:-~dummy~}
+
+set -x
+grep --color "$1\|$PAT2\|\$"
+
