@@ -1,0 +1,1 @@
+LANG=en rdesktop -g 1600x1120 -u user -r 'disk:mydisk=/home/ondra/tmp/vmg14' vmg14.mw.lab.eng.bos.redhat.com

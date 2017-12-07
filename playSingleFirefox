@@ -1,0 +1,7 @@
+
+sleep 1
+if [ -e /tmp/sound ] ; then echo Skipping; exit; fi
+touch /tmp/sound
+firefox $1
+sleep 5
+rm -f /tmp/sound

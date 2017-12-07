@@ -1,0 +1,31 @@
+#!/bin/bash
+
+
+
+MIGR_DIR="~/work/mig"
+
+(
+cd $MIGR_DIR/windup
+
+git stash save "repull-previousPosition"
+repull
+git co -
+git stash pop stash^{/repull-previousPosition}
+
+
+cd $MIGR_DIR/windup-rulesets
+
+git stash save "repull-previousPosition"
+repull
+git co -
+git stash pop stash^{/repull-previousPosition}
+
+
+cd $MIGR_DIR/windup-distribution
+
+git stash save "repull-previousPosition"
+repull
+git co -
+git stash pop stash^{/repull-previousPosition}
+)
+

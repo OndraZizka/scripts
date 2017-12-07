@@ -1,0 +1,6 @@
+#!/bin/bash
+
+MIGR_DIR="~/work/mig"
+
+find $MIGR_DIR/windup-web/ui/src/app/generated/ -name '*.js' -o -name '*.js.map'  | xargs rm
+

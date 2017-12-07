@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -x
+set -e
+
+if [ "x$1" = "x" ] ; then
+    echo "ERROR: expected 1 param - tabs group name."; exit;
+fi
+
+TAB_GROUP_NAME=$1
+
+DEST_FILE="~/.netbeans/nbTabs/$TAB_GROUP_NAME";
+mkdir -p ~/.netbeans/nbTabs/;
+
+git status --short | cut -b4- | xargs -n1 echo netbeans $1 > $DEST_FILE;
+chmod +x $DEST_FILE;
+
+echo "Saved changed files as NetBeans tabs to $DEST_FILE";
+

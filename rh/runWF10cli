@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export JAVA_HOME="/sw/prog/jdk/1.8.0_131";
+/sw/AS/wildfly-10.1.0.Final/bin/jboss-cli.sh "$@"
+

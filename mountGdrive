@@ -1,0 +1,5 @@
+if [ "$1" == "" ] ; then
+    google-drive-ocamlfuse /gdrive/
+else
+    fusermount -u /gdrive/
+fi

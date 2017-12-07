@@ -1,0 +1,45 @@
+#!/bin/bash
+
+## 
+## Run `ide.sh FooBar` and it most likely opens what you are looking for in the IDE:
+## 
+## 1) Tries to open the path.
+## 2) If it doesn't exist, it tries to open that file anywhere in the directory tree (provided it has some of the file name suffixes I currently use).
+## 3) If not exists, it opens the files that contains a type of that name (class, function, interface).
+## 4) If not found, it opens the files that contain given pattern.
+## 
+
+
+IDE="/sw/prog/netbeans-8.2/bin/netbeans"
+MAX_FILES_TO_OPEN=5
+if [ "$1" == "" ] ; then echo "No argument to open given."; exit; fi
+
+## If the argument is a path to a file, open it.
+if [ -f "$1" ] ; then
+  "$IDE" "$1"
+
+set +x
+
+## Else if it's a path in a form of foo*bar (contains a star), open all that match, of types .java, .ts, .html, .xml, .ftl
+elif expr "$1" : ".*\*.*" ; then 
+  #find . -path ./target -prune -o -name "*$1*".java -o -name "*$1*".ts -o -name "*$1*".xml -o -name "*$1*".ftl | xargs $IDE
+  #find . \(-path '*/target/*' -a -type d -prune)  -o -name "*$1*".java -o -name "*$1*".ts -o -name "*$1*".xml -o -name "*$1*".ftl | xargs $IDE
+  #find . -name "*$1*".java -o -name "*$1*".ts -o -name "*$1*".xml -o -name "*$1*".ftl -not -path "./*/target/*" | xargs $IDE
+  find . -path "./*/target/*" -prune -o \( -name "*$1*".java -o -name "*$1*".ts -o -name "*$1*".html -o -name "*$1*".xml -o -name "*$1*".ftl \) -print | xargs $IDE
+
+## Else if there's a class of that name, open it.
+elif [ `find -name "$1".java | wc -l` == 1 ] ; then 
+  "$IDE" `find -name "$1".java | head -n 1`
+
+## Else if there's a TypeScript class of that name, open it.
+git grep -q -E "(class|function|interface|enum) +$1"
+elif [ $? ] ; then 
+  git grep -l -E "(class|function|interface|enum) +$1" | head -n $MAX_FILES_TO_OPEN | xargs "$IDE"
+
+## Else open whatever matches the given pattern.
+else
+  COUNT=`git grep -l "$1" | wc -l`
+  if [[ "$COUNT" -gt "$MAX_FILES_TO_OPEN" ]] ; then echo "Too many `git grep` matches, taking first $MAX_FILES_TO_OPEN."; fi
+  git grep -l "$1" | head -n $MAX_FILES_TO_OPEN | xargs "$IDE"
+fi
+

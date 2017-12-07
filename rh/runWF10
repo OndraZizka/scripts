@@ -1,0 +1,11 @@
+#!/bin/bash
+
+JAVA_OPTS="-Xms64m -Xmx8192m -XX:MetaspaceSize=192M -XX:MaxMetaspaceSize=2048m -Djava.net.preferIPv4Stack=true"
+JAVA_OPTS="$JAVA_OPTS -Djava.awt.headless=true"
+
+export JAVA_OPTS;
+#export JAVA_HOME=/sw/prog/jdk/openjdk/jdk1.8.0_121/;
+/sw/AS/wildfly-10.1.0.Final/bin/standalone.sh -c standalone-full.xml "$@"
+
+
+

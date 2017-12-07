@@ -1,0 +1,12 @@
+ssh -p 20202 -i /home/ondra/.ssh/poh-daniel/daniel-id_rsa \
+  -L 4406:localhost:3306  \
+  -L 4470:localhost:8080  \
+  -L 4480:localhost:8080  \
+  -L 4490:localhost:9990  \
+  -L 4499:localhost:9999  \
+  ondra@d.pohlidame.cz 
+
+##  http://www.certpal.com/blogs/2010/03/howto-ssh-tunnel-multiple/
+##  -f = work in the background.
+##  -N = don't execute any commands. 
+

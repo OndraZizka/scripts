@@ -1,0 +1,1 @@
+ssh -f -i ~/.ssh/aws-collab-devel.pem fedora@54.173.74.46 -L 6379:cct-poc.szpi46.0001.use1.cache.amazonaws.com:6379 -N

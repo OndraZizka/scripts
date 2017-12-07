@@ -1,0 +1,1 @@
+sudo gedit /sw/prog/jdk/openjdk/jdk1.8.0_102/jre/lib/logging.properties

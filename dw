@@ -1,0 +1,13 @@
+#!/bin/bash
+
+rm ./*-api/target/original-*.jar
+
+if [ "$JAVA_HOME" != "" ] ; then JAVA_HOME="$JAVA_HOME/bin/"; fi
+
+export JAVA="$JAVA_HOME"java
+
+echo "Using Java from "$(which $JAVA)": " $($JAVA -version)
+
+$JAVA -jar ./*-api/target/*-api-*.jar server "$@"
+
+

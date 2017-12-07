@@ -1,0 +1,3 @@
+ssh -p 20202 ondra@d.pohlidame.cz -i /home/ondra/.ssh/poh-daniel/daniel-id_rsa
+
+

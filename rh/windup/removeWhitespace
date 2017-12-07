@@ -1,0 +1,1 @@
+git check-whitespace | grep trailing | cut -d: -f1 | sort | uniq | xargs sed -i -E 's/[ \t]*$//'

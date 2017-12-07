@@ -1,0 +1,5 @@
+#!/bin/bash
+
+MIGR_DIR="/home/ondra/work/mig"
+
+cd  $MIGR_DIR/windup-web/ui/src/main/webapp

@@ -1,0 +1,3 @@
+
+## Deletes TypeScript compiler (tsc) residuals.
+gi | grep -e .js$ -e .js.map$ | xargs rm

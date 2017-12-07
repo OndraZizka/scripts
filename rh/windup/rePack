@@ -1,0 +1,5 @@
+. `which cdWindupWebApp`
+pwd
+#./node_modules/.bin/webpack --progress --profile "$@" #--watch
+webpack --progress --profile "$@"
+

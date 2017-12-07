@@ -1,0 +1,1 @@
+git diff --name-only master..HEAD | xargs -n1 netbeans

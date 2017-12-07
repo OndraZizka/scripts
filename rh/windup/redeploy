@@ -1,0 +1,22 @@
+#!/bin/bash
+
+##  Usage:
+# redeploy web
+# redeploy ser
+# redeploy    // Redeploys both
+
+WHAT="$1"
+SER="1"
+WEB="1"
+
+if [ "$WHAT" == "ser" ] ; then WEB="" ; fi
+if [ "$WHAT" == "web" ] ; then SER="" ; fi
+if [ "$WHAT" == "ui" ] ;  then SER="" ; fi
+
+CMD_SER="/deployment=api/:redeploy"
+CMD_WEB="/deployment=rhamt-web/:redeploy"
+
+if [ "$SER" != "" ] ; then echo "$CMD_SER"; runWF10cli --connect --command="$CMD_SER"; fi
+if [ "$WEB" != "" ] ; then echo "$CMD_WEB"; runWF10cli --connect --command="$CMD_WEB"; fi
+
+

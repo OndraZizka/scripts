@@ -1,0 +1,1 @@
+scp -P 20202 -i /home/ondra/.ssh/poh-daniel/daniel-id_rsa  $1  ondra@d.pohlidame.cz:~/$2
