@@ -1,4 +1,6 @@
 #!/bin/bash
 set -x
-ssh -i /work/COOK/bbcpd-bpds-api/.kitchen/kitchen-vagrant/default-centos-72/.vagrant/machines/default/virtualbox/private_key vagrant@localhost -p 2222 \
-    "$@"
+#ssh -i /work/COOK/bbcpd-bpds-api/.kitchen/kitchen-vagrant/default-centos-72/.vagrant/machines/default/virtualbox/private_key -p 2222 vagrant@localhost "$@"
+
+ssh -i `find /work/COOK/bbcpd-bpds-api/.kitchen/ -name private_key` -p 2222 vagrant@localhost "$@"
+ 

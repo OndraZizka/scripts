@@ -12,10 +12,9 @@
 
 
 set -x
-#echo "Pushing `find */target -name bpds-api-*-SNAPSHOT.jar` to local Vagrant instance."
-~/sc/scpKitchen `find */target -name bpds-api-*-SNAPSHOT.jar` /tmp/fromTarget.jar
 
-~/sc/sshKitchen "sudo mv -f /tmp/fromTarget.jar /opt/bpds-api/lib/bpds-api.jar"
+~/sc/bb/scpDocAws `find */target -name bpds-api-*-SNAPSHOT.jar` /tmp/fromTarget.jar
 
-#echo "Restarting bpds-api service."
-~/sc/sshKitchen "sudo systemctl restart bpds-api"
+~/sc/bb/sshDocAws "sudo mv -f /tmp/fromTarget.jar /opt/bpds-api/lib/bpds-api.jar"
+
+~/sc/bb/sshDocAws "sudo systemctl restart bpds-api && tail -500f /opt/bpds-api/logs/bpds.api.log"

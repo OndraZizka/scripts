@@ -1,1 +1,10 @@
-ssh -i `find .kitchen/ -name private_key` vagrant@localhost -p 2222
+
+
+if [ 0 == `find */.kitchen/ -name private_key | wc -l` ] ; then
+    echo "No kitchen private key found in subdirs; are you in a cookbook project?"; exit;
+fi
+
+
+set -x
+ssh -i `find */.kitchen/ -name private_key` -p 2222 vagrant@localhost "$@"
+

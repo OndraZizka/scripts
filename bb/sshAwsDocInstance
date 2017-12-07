@@ -1,1 +1,0 @@
-ssh -i ~/.ssh/aws.pem centos@ec2-34-230-14-5.compute-1.amazonaws.com
