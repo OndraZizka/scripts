@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker run -it --link redis:redis --rm redis redis-cli -h ${1:-localhost} -p ${2:-6379}
+

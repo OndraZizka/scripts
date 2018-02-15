@@ -1,0 +1,43 @@
+#!/bin/bash
+
+##  https://misc.flogisoft.com/bash/tip_colors_and_formatting
+
+##  This is a colorizing through pipe to sed:
+#~/sc/bb/sshDocVagrant tail -n 200 -F /opt/bpds-api/logs/bpds.api.log \
+#  | sed --unbuffered   \
+#  -e 's/\(.*WARN.*\)/\o033[33m\1\o033[39m/' \
+#  -e 's/\(.*\(SEVERE\|ERROR\).*\)/\o033[31m\1\o033[39m/' \
+
+# ESCAPE=\o033
+# BOLD=1
+# RESET_ATTR=0
+
+# DEFAULT_COLOR=39
+# RED=31
+# ORANGE=33
+# YELLOW=93
+# BLUE=34
+# LIGHT_BLUE=94
+# CYAN=36
+
+##  91b3f91e-b3ab-46c8-9e69-742f182cf755
+N='[0-9a-f]'
+N4="$N$N$N$N"
+UUID="$N4$N4-$N4-$N4-$N4-$N4$N4$N4"
+
+##  Redirect the script input to sed-based colorizer
+sed --unbuffered \
+  -e 's#\(.*WARN.*\)#\o033[33m\1\o033[39m#' \
+  -e 's#\(.*\)\(SEVERE\|ERROR\)\(.*\)#\1\o033[31m\o033[1m\2\o033[39m\o033[0m\3#' \
+  -e 's#\(.*\)\(TRACE|DEBUG\)\(.*\)#\1\o033[36m\o033[1m\2\o033[39m\o033[0m\3#' \
+  -e 's#\(404 \)\(.*\)#\o033[93m\1\o033[39m\2#' \
+  -e 's#\(.*\)Caused by\(.*\)#\1\o033[31m\o033[1m\0\o033[39m\o033[0m#' \
+  <&0
+
+## UUID:   -e 's#\(.*\)\('$UUID'\)\(.*\)#\1\o033[95m\2\o033[39m\3#' \
+
+##  Full line colored:
+#  -e 's/\(.*WARN.*\)/\o033[33m\1\o033[39m/' \
+#  -e 's/\(.*\(SEVERE\|ERROR\).*\)/\o033[31m\1\o033[39m/' \
+
+
