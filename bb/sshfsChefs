@@ -1,20 +1,31 @@
 #!/bin/bash
 #sshfs user@host:/dir /tmp/ssh
 
-#sudo mkdir -p /mnt/chefFlex  # This is chef-dev
-#sudo mkdir -p /mnt/chefAws   # This is chef-qa
+##  For sshfs man page, see http://manpages.ubuntu.com/manpages/xenial/man8/mount.fuse.8.html
+
+
+set -e
+
+sudo mkdir -p /mnt/chefFlex  # This is chef-dev
+sudo mkdir -p /mnt/chefAws   # This is chef-qa
+sudo chmod a+rwx /mnt/chefFlex
+sudo chmod a+rwx /mnt/chefAws
 
 set -x
 
+#if [ `runsOnMac` ] ; then MAC_WORKAROUND=""; fi
+
+# This is chef-dev == Flexgen
 MOUNT="chef@chef-pd.bbcollab.net:/home/chef"
 echo "Mounting $MOUNT..."
-sshfs -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_rsa  $MOUNT  /mnt/chefFlex
+sshfs -o allow_other${MAC_WORKAROUND:-''},IdentityFile=~/.ssh/id_rsa  $MOUNT  /mnt/chefFlex
 ## The environments are under ~/...?
 ## Password is chef
 
+# This is chef-qa == AWS
 MOUNT="citc-pd-usa@chef-pd-qa.bbpd.io:/home/citc-pd-usa"
 echo "Mounting $MOUNT..."
-sshfs -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_rsa  $MOUNT  /mnt/chefAws
+sshfs -o allow_other${MAC_WORKAROUND:-''},IdentityFile=~/.ssh/id_rsa  $MOUNT  /mnt/chefAws
 ## The environments are under ~/citc/ccp-dev/cookbooks/ccp-dev-env/
 ## Password is chef 
 
