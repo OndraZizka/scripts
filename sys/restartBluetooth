@@ -1,0 +1,1 @@
+sudo rfkill block bluetooth && sleep 1 && sudo rfkill unblock bluetooth
