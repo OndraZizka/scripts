@@ -1,0 +1,3 @@
+
+set -x
+ssh -i ~/.ssh/aws.pem centos@ec2-54-164-173-210.compute-1.amazonaws.com "$@"

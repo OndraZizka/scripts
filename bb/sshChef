@@ -1,1 +1,8 @@
-ssh citc-pd-usa@chef-pd-qa.bbpd.io
+#!/bin/bash
+
+ENV=${1:-dev}
+if [ "$ENV" == "dev" ] ; then
+  ssh chef@chef-pd.bbcollab.net # Password is chef. Apollo, Hydra, Proteus... Flexgen environments.
+elif [ "$ENV" == "qa" ] ; then
+  ssh citc-pd-usa@chef-pd-qa.bbpd.io # Controls AWS nodes, located in Flexgen. DEV, QA, TP, LP.
+fi

@@ -1,11 +1,12 @@
+#!/bin/bash
 
 set -e
 
-if [ 0 == `find */.kitchen/ -name private_key | wc -l` ] ; then
-    echo "No kitchen private key found in subdirs; are you in a cookbook project?"; exit;
-fi
+#if [ 0 == `find */.kitchen/ -name private_key | wc -l` ] ; then
+#    echo "No kitchen private key found in subdirs; are you in a cookbook project?"; exit;
+#fi
 
-HOST=bpds01-ccp-dev.bbcollabcloud.com
+HOST=bpds02-ccp-dev.bbcollabcloud.com
 TARGET_REMOTE_DIR=${2:-"~"}
 SSH_KEY_PATH=~/.ssh/aws.pem
 

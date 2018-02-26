@@ -1,4 +1,4 @@
-
+#!/bin/sh
 
 
 ## Mac grep doesn't support \0 separator with -z.
@@ -10,7 +10,7 @@
 ##  Can't rewrite it as vagrant user.
 #~/sc/scpKitchen `find */target -name bpds-api-*-SNAPSHOT.jar` /opt/bpds-api/lib/bpds-api.jar
 
-
+set -e
 set -x
 
 ~/sc/bb/scpDocAws `find */target -name bpds-api-*-SNAPSHOT.jar` /tmp/fromTarget.jar

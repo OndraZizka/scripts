@@ -1,0 +1,20 @@
+#!/bin/bash
+#sshfs user@host:/dir /tmp/ssh
+
+#sudo mkdir -p /mnt/chefFlex  # This is chef-dev
+#sudo mkdir -p /mnt/chefAws   # This is chef-qa
+
+set -x
+
+MOUNT="chef@chef-pd.bbcollab.net:/home/chef"
+echo "Mounting $MOUNT..."
+sshfs -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_rsa  $MOUNT  /mnt/chefFlex
+## The environments are under ~/...?
+## Password is chef
+
+MOUNT="citc-pd-usa@chef-pd-qa.bbpd.io:/home/citc-pd-usa"
+echo "Mounting $MOUNT..."
+sshfs -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_rsa  $MOUNT  /mnt/chefAws
+## The environments are under ~/citc/ccp-dev/cookbooks/ccp-dev-env/
+## Password is chef 
+

@@ -1,0 +1,24 @@
+
+#~/sc/bb/sshDocAws "tail -${1:-500}f /opt/bpds-api/logs/bpds.api.log"
+
+#~/sc/bb/sshDocAws "tail -n 500 -F /opt/bpds-api/logs/bpds.api.log  | awk '
+#  /INFO/ {print u"\033[32m" $0 u"\033[39m"}
+#  /WARN/ {print u"\033[33m" $0 u"\033[39m"}
+#  /WARNING/ {print u"\033[33m" $0 u"\033[39m"}
+#  /SEVERE/ {print u"\033[31m" $0 u"\033[39m"}
+#'"
+
+
+~/sc/bb/sshDocAws "tail -n 500 -F /opt/bpds-api/logs/bpds.api.log  | sed --unbuffered \
+    -e 's#\(.*INFO.*\)#\o033[32m\1\o033[39m#' \
+    -e 's#\(.*WARN.*\)#\o033[33m\1\o033[39m#' \
+    -e 's#\(.*SEVERE.*\)#\o033[31m\1\o033[39m#'
+    "
+
+exit
+##  Doesn't work as expected.
+~/sc/bb/sshDocAws "cat /opt/bpds-api/logs/bpds.api.log  | sed --unbuffered \
+    -e 's#\(.*INFO.*\)#\o033[32m\1\o033[39m#' \
+    -e 's#\(.*WARN.*\)#\o033[33m\1\o033[39m#' \
+    -e 's#\(.*SEVERE.*\)#\o033[31m\1\o033[39m#' \
+    less +F"

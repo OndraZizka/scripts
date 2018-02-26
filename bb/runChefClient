@@ -1,0 +1,23 @@
+set +x
+
+#CMD='ssh -i ~/.ssh/aws.pem $NODE "sudo chef-client"'
+#CMD="sudo chef-client"
+CMD="sudo echo a"
+
+read -r -d '' NODES <<-'EOF'
+    bpds01-ccp-qa.bbcollabcloud.com
+    bpds02-ccp-qa.bbcollabcloud.com
+    bpds03-ccp-qa.bbcollabcloud.com
+EOF
+
+#    bpds01-ccp-dev.bbcollabcloud.com
+
+
+while read -r NODE; do
+    echo -e "\n\n\n\n\n\n *** Running '$CMD' at centos@$NODE"
+    CMD="ssh -i ~/.ssh/aws.pem centos@$NODE '$CMD'"
+    echo -e  "         " $CMD
+    $CMD
+
+done <<< "$NODES"
+
