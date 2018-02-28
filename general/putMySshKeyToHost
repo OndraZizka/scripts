@@ -1,0 +1,16 @@
+#!/bin/bash
+
+HOST=${1:-$HOST}
+
+if [ "$HOST" == "" ] ; then echo "Usage: $0 <host> [<'etc' (default) or 'home'>]"; exit; fi
+
+KEYS_FILE="/etc/ssh/authorized_keys"
+if [ "$2" == "home" ] ; then 
+  KEYS_FILE='$HOME/.ssh/authorized_keys';
+fi
+
+CMD="echo '`cat ~/.ssh/id_rsa.pub`' >> $KEYS_FILE";
+echo "Running at $HOST: $CMD"
+ssh root@$HOST "$CMD"
+
+
