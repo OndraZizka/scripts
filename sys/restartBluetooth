@@ -1,1 +1,4 @@
-sudo rfkill block bluetooth && sleep 1 && sudo rfkill unblock bluetooth
+#!/bin/bash
+
+sudo rfkill block bluetooth && sleep 1 && sudo rfkill unblock bluetooth && systemctl restart bluetooth.service
+

@@ -1,1 +1,11 @@
-ssh -f -i ~/.ssh/aws-collab-devel.pem fedora@54.173.74.46 -L 6379:cct-poc.szpi46.0001.use1.cache.amazonaws.com:6379 -N
+#!/bin/bash
+
+TARGET_REDIS=${1:-cct-poc.szpi46.0001.use1.cache.amazonaws.com}
+LOCAL_PORT=${2:-6379}
+	
+#if [ "$1" != "" ] ; then TARGET_REDIS=$1 ; fi
+
+set -x
+#ssh -f -i ~/.ssh/aws.pem fedora@54.173.74.46 -L $LOCAL_PORT:$TARGET_REDIS:6379 -N -S /tmp/sshTunel$LOCAL_PORT  ## Fedora, deleted
+#ssh -f -i ~/.ssh/aws.pem centos@ec2-34-230-14-5.compute-1.amazonaws.com -L $LOCAL_PORT:$TARGET_REDIS:6379 -N -S /tmp/sshTunel$LOCAL_PORT  ## AWS DocService dev
+ssh -f -i ~/.ssh/aws.pem centos@bpds01-ccp-dev.bbcollabcloud.com. -L $LOCAL_PORT:$TARGET_REDIS:6379 -N -S /tmp/sshTunel$LOCAL_PORT  ## AWS DocService dev, DNS alias
