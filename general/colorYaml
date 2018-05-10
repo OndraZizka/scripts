@@ -1,0 +1,13 @@
+#!/bin/bash
+
+##
+## Colorizes the standard input as YAML - the keys are green, the numbers orange.
+## Usage:  cat foo.yaml | $0
+##
+
+_NC=$(echo -e -n \\e[0m);
+_ORANGE=$(echo -e -n \\e[33m);
+
+sed "s#^[^:]*:#$(echo -e -n \\e[32m)\0$(echo -e -n \\e[0m)#g" | sed "s#\(:.* \)\([0-9.]\+\)\$#\1$_ORANGE\2$_NC#g"; ## Dont colorize foo123
+
+
