@@ -1,0 +1,8 @@
+
+echo "Asked to shred files at $PWD";
+
+if [ "${PWD%%/media/ondra}" == "" ] ; then
+    echo "Not in /media/ondra! Halting."; exit;
+fi 
+
+find . -type f -exec shred --verbose --iterations=0 --zero --remove {} \;

@@ -1,19 +1,29 @@
 #!/bin/bash
 
-HOST=${1:-$HOST}
+HOST_=${1:-$HOST_}
 
-if [ "$HOST" == "" ] ; then
-  echo "Usage: $0 <host> [<targetConfig>]"; 
+## Support  user@host as parameter.
+USER_=${HOST_%%@*}
+if [ "$USER_" == "$HOST_" ] ; then
+  ## No user set, just host.
+  USER_="root";
+else
+  HOST_=${HOST_##*@}
+fi
+
+
+
+if [ "$HOST_" == "" ] ; then
+  echo "Usage: $0 <host> [<targetConfig>]";
   echo "  where targetConfig:  'home' (default) or 'etc'"
   exit;
 fi
 
 KEYS_FILE='$HOME/.ssh/authorized_keys';
-if [ "$2" != "home" ] ; then 
+if [ "root" == "$USER_" && "$2" != "home" ] ; then
   KEYS_FILE="/etc/ssh/authorized_keys"
 fi
 
 CMD="echo '`cat ~/.ssh/id_rsa.pub`' >> $KEYS_FILE";
-echo "Running at $HOST: $CMD"
-ssh root@$HOST "$CMD"
-
+echo "Running at $HOST_: $CMD"
+ssh $USER_@$HOST_ "$CMD"
