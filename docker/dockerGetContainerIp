@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ "" == "$1" ] ; then echo "Usage: $0 <containerId>"; exit 1; fi;
+
+docker container inspect --format '{{ .NetworkSettings.IPAddress }}'  $1
