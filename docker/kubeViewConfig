@@ -1,0 +1,1 @@
+kubectl config view | sed "s#^[^:]*:#$(echo -e -n \\e[32m)\0$(echo -e -n \\e[0m)#g" | sed "s#\(:.* \)\([0-9]\+\)\$#\1$_ORANGE\2$_NC#g"; ## Dont colorize foo123
