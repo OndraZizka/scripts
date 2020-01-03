@@ -1,4 +1,13 @@
-vid/
-bb/
-target/
 
+# Specific repos
+ar/
+bb/
+rh/
+sr/
+
+# Other repos
+vid/
+
+# Not to be pushed
+old/
+target/
