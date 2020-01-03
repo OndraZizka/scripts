@@ -1,1 +1,0 @@
-ssh bd077a47431441dc81f4e7f89636ac43@essc-ondra.rhcloud.com

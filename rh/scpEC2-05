@@ -1,1 +1,0 @@
-scp -i ~/.ssh/ozizka-ec2.pem $1 root@ec2-75-101-220-92.compute-1.amazonaws.com:~/EAP/$2

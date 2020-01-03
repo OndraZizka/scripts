@@ -1,4 +1,0 @@
-#!/bin/bash
-
-git ls-files *.java *.ts *.xml *.html -z | xargs -0 -I {} bash -c 'expand -t 4 "$0" > /tmp/e && mv /tmp/e "$0" ' {}
-

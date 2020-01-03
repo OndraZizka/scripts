@@ -1,1 +1,0 @@
-ssh -i /home/ondra/.ssh/id_rsa-rh ozizka@$1.mw.lab.eng.brq.redhat.com

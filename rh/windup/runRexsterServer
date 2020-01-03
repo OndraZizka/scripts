@@ -1,5 +1,0 @@
-RX_SERVER_DIR=/home/ondra/sw/prog/RexsterJess/rexster-server-titan
-
-## Enclose in a subshell to return back to the current dir.
-(cd $RX_SERVER_DIR && ./bin/rexster.sh "$@")
-

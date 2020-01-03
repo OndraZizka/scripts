@@ -1,1 +1,0 @@
-sudo openvpn --config ~/.ssh/RedHat-OpenVPN/ovpn-redhat-brq-lzap-2017.conf & openvpn --config /home/ondra/.ssh/RedHat-OpenVPN/ovpn-redhat-brq-lzap-2017.conf

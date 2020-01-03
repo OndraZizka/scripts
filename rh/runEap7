@@ -1,1 +1,0 @@
-export JAVA_HOME=~/sw/jdk1.8.0_72/; ~/sw/AS/jboss-eap-7.0/bin/standalone.sh "$@"
